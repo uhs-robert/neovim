@@ -6,6 +6,9 @@ return {
   -- Navigate between Vim splits and tmux panes using consistent keybindings (Ctrl+hjkl)
   {
     "christoomey/vim-tmux-navigator", -- tmux navigation for vim and neovim, also supports tmux-res'
+    init = function()
+      vim.g.tmux_navigator_no_wrap = 1
+    end,
     cmd = {
       "TmuxNavigateLeft",
       "TmuxNavigateDown",
