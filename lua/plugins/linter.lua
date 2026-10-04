@@ -3,11 +3,11 @@
 return {
   {
     "mason-org/mason.nvim",
-    -- Format with the system binaries so output matches repo checks that run them
+    -- Use the system binaries so editor output matches repo checks that run them
     opts = function(_, opts)
-      local system_formatters = { shfmt = true, stylua = true }
+      local system_tools = { shellcheck = true, shfmt = true, stylua = true }
       opts.ensure_installed = vim.tbl_filter(function(tool)
-        return not system_formatters[tool]
+        return not system_tools[tool]
       end, opts.ensure_installed or {})
     end,
   },
