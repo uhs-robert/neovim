@@ -38,6 +38,9 @@ local hidden_colorschemes = {
   zellner = true,
 }
 
+-- The oasis-dots showcase starts Neovim with OASIS_DEMO set, which keeps the lists of personal paths off camera.
+local IS_DEMO = vim.env.OASIS_DEMO ~= nil
+
 -- Dashboard configuration and startup screen customization
 -- Contains Snacks.nvim dashboard setup with UpHill Solutions branding and custom theming
 return {
@@ -54,8 +57,15 @@ return {
           ---@diagnostic disable-next-line: assign-type-mismatch
           { padding = 2, align = "center", text = { "[ https://uphillsolutions.tech ]", hl = "OasisAccent" } },
           { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-          { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+          {
+            icon = " ",
+            title = "Recent Files",
+            section = "recent_files",
+            indent = 2,
+            padding = 1,
+            enabled = not IS_DEMO,
+          },
+          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1, enabled = not IS_DEMO },
           { section = "startup" },
         },
       },
