@@ -3,7 +3,7 @@
 --   return {
 --     preset = "minimal",                         -- a bundle from lua/config/presets.lua
 --     disabled_groups = { "remote" },             -- whole lua/plugins/*.lua files, by file name
---     disabled_extras = { "lang.astro" },         -- extras from lua/config/language_extras.lua
+--     disabled_extras = { "lang.astro" },         -- extras from lua/config/extras.lua
 --     disabled_plugins = { "smear-cursor.nvim" }, -- any plugin, by its name in :Lazy
 --   }
 

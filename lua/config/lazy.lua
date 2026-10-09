@@ -18,8 +18,8 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- language extras, each only where its toolchain is installed
-    require("config.language_extras"),
+    -- LazyVim extras, the language ones only where their toolchain is installed
+    require("config.extras"),
     -- import/override with your plugins, one group per lua/plugins/ file
     require("config.plugin_groups"),
     -- plugins turned off on this machine; a name alone disables the plugin wherever it is defined

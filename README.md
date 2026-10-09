@@ -59,11 +59,14 @@ The first start installs every plugin, then Mason installs the language servers 
 
 ## 🌐 Per-Machine Settings
 
+Every LazyVim extra this config uses is listed in [`lua/config/extras.lua`](lua/config/extras.lua).
 Language extras whose tools Mason installs through a toolchain (npm, pip, go, gem, cargo) only load
 on machines that have that toolchain. Without Node, for example, TypeScript, Astro, JSON, YAML,
-Markdown and Tailwind are skipped. The list and what each one needs is in
-[`lua/config/language_extras.lua`](lua/config/language_extras.lua). Extras that need no toolchain,
-such as PHP, TOML and git, are in [`lazyvim.json`](lazyvim.json) and load everywhere.
+Markdown and Tailwind are skipped. The rest, such as PHP, TOML and git, load everywhere.
+
+`lazyvim.json` is git-ignored: LazyVim keeps per-machine state there, such as which news it has
+shown you. Extras toggled with `:LazyExtras` are saved there too, so they only apply to that
+machine.
 
 To trim a machine further, for example to keep a server minimal, create `lua/config/machine.lua`
 (git ignores it) and restart Neovim. Most machines only need a preset:
@@ -154,9 +157,9 @@ Plugins this config adds on top of LazyVim and its extras, grouped by the file i
 
 ```text
 init.lua                     leader, local plugin paths, then lazy.nvim
-lazyvim.json                 LazyVim extras that load everywhere
 lua/config/                  options, keymaps, autocmds, lazy.nvim setup
-lua/config/language_extras.lua   language extras gated on toolchains
+lua/config/extras.lua        LazyVim extras, the language ones gated on toolchains
+lua/config/presets.lua       named bundles for machine.lua
 lua/plugins/                 one file per area (theme, editor, git, navigation, remote, ...)
 after/, ftplugin/, spell/    filetype tweaks, treesitter queries, spelling dictionary
 scripts/readme_plugins.lua   regenerates the plugin list in this README
@@ -177,7 +180,7 @@ Fork it, then:
    wrapped in `local_plugin("name")` load from there when the folder exists, and from GitHub when it
    doesn't, which is handy when you develop plugins of your own.
 2. Swap the colorscheme rules in `lua/plugins/core.lua` and `lua/plugins/theme.lua`.
-3. Toggle LazyVim extras with `:LazyExtras`, or add toolchain-backed ones to
-   `lua/config/language_extras.lua`.
+3. Add or remove LazyVim extras in `lua/config/extras.lua`. `:LazyExtras` still works, but only
+   for the machine you run it on.
 
 Like it? Give it a star, or [buy me a coffee](https://ko-fi.com/uphillsolutions).
