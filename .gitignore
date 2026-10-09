@@ -107,3 +107,6 @@ promptgen/
 *.llm-cache
 *.llm-out
 *.generated.*
+
+# Per-machine overrides (see lua/config/language_extras.lua)
+lua/config/machine.lua
