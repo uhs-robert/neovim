@@ -1,0 +1,19 @@
+#!/bin/sh
+# Regenerates the README's plugin list when a commit touches the plugin specs, and stages it.
+# Enable once per clone: git config core.hooksPath .githooks
+# Git for Windows runs this with its bundled sh, so it stays POSIX.
+
+git diff --cached --name-only | grep -q '^lua/plugins/' || exit 0
+
+if ! command -v nvim >/dev/null 2>&1; then
+  echo "pre-commit: nvim not found, README plugin list not regenerated" >&2
+  exit 0
+fi
+
+nvim --headless -c "luafile scripts/readme_plugins.lua" -c "qa!" || {
+  echo "pre-commit: scripts/readme_plugins.lua failed, commit stopped" >&2
+  exit 1
+}
+
+# Stages the whole README, including any unstaged README edits made alongside the plugin change.
+git add README.md
