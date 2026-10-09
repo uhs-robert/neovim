@@ -3,8 +3,8 @@
 -- Each is imported only where that toolchain exists, so Mason never tries to install a server it
 -- has no runtime for. Extras that need no toolchain stay in lazyvim.json.
 --
--- To skip one on a single machine anyway, list it in the untracked lua/config/machine.lua:
---   return { disabled_extras = { "lang.astro" } }
+-- To skip one on a single machine anyway, list it under disabled_extras in the untracked
+-- lua/config/machine.lua (see lua/config/machine_settings.lua).
 
 local IS_WINDOWS = vim.fn.has("win32") == 1
 
@@ -15,11 +15,21 @@ local function has(executable)
 end
 
 local toolchain_available = {
-  node = function() return has("node") end,
-  python = function() return has("python3") or has("python") end,
-  go = function() return has("go") end,
-  ruby = function() return has("ruby") end,
-  cargo = function() return has("cargo") end,
+  node = function()
+    return has("node")
+  end,
+  python = function()
+    return has("python3") or has("python")
+  end,
+  go = function()
+    return has("go")
+  end,
+  ruby = function()
+    return has("ruby")
+  end,
+  cargo = function()
+    return has("cargo")
+  end,
 }
 
 -- Ordered as LazyVim's own extras loader would (lazyvim/plugins/xtras.lua): typescript, then
@@ -42,8 +52,7 @@ local extras = {
   { "lang.yaml", needs = { "node" } },
 }
 
-local ok, machine = pcall(require, "config.machine")
-local disabled_extras = ok and machine.disabled_extras or {}
+local disabled_extras = require("config.machine_settings").disabled_extras
 
 return vim.tbl_map(function(extra)
   local name = extra[1]
