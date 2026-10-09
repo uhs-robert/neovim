@@ -20,6 +20,23 @@ Open Neovim with this config:
 NVIM_APPNAME=uhs-robert/nvim-config/ nvim
 ```
 
+## Languages per machine
+
+Language extras whose tools Mason installs through a toolchain (npm, pip, go, gem, cargo) only load
+on machines that have that toolchain. Without Node, for example, TypeScript, Astro, JSON, YAML,
+Markdown and Tailwind are skipped. The list and what each one needs is in
+[`lua/config/language_extras.lua`](lua/config/language_extras.lua).
+
+To turn one off on a single machine even though its toolchain is there, create
+`lua/config/machine.lua` (git ignores it) and restart Neovim:
+
+```lua
+return { disabled_extras = { "lang.astro", "lang.tailwind" } }
+```
+
+Names are the extra without its `lazyvim.plugins.extras.` prefix. Mason keeps tools it already
+installed; remove them from `:Mason` with `X`.
+
 ## Plugins
 
 ### ai
