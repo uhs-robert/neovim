@@ -24,7 +24,8 @@ This is the editor half of [oasis-dots](https://github.com/uhs-robert/oasis-dots
   mounts a server, opens it in the picker or [yazi](https://github.com/sxyazi/yazi), and can search it
   live over SSH.
 - **Languages per machine.** Each language only loads where its toolchain is installed,
-  so a box without Node never tries to install a TypeScript server.
+  so a box without Node never tries to install a TypeScript server. An untracked `machine.lua` turns
+  off anything else a minimal machine doesn't want.
 - **One config, two systems.** The same repo is linked into `~/.config/nvim` on Linux and
   `%LOCALAPPDATA%\nvim` on Windows.
 
@@ -56,7 +57,7 @@ NVIM_APPNAME=uhs-nvim nvim
 
 The first start installs every plugin, then Mason installs the language servers in the background.
 
-## 🌐 Languages Per Machine
+## 🌐 Per-Machine Settings
 
 Language extras whose tools Mason installs through a toolchain (npm, pip, go, gem, cargo) only load
 on machines that have that toolchain. Without Node, for example, TypeScript, Astro, JSON, YAML,
@@ -64,15 +65,21 @@ Markdown and Tailwind are skipped. The list and what each one needs is in
 [`lua/config/language_extras.lua`](lua/config/language_extras.lua). Extras that need no toolchain,
 such as PHP, TOML and git, are in [`lazyvim.json`](lazyvim.json) and load everywhere.
 
-To turn one off on a single machine even though its toolchain is there, create
-`lua/config/machine.lua` (git ignores it) and restart Neovim:
+To trim a machine further, for example to keep a server minimal, create `lua/config/machine.lua`
+(git ignores it) and restart Neovim:
 
 ```lua
-return { disabled_extras = { "lang.astro", "lang.tailwind" } }
+return {
+  -- language extras to skip even though their toolchain is installed
+  disabled_extras = { "lang.astro", "lang.tailwind" },
+  -- any plugin, by the name :Lazy shows for it
+  disabled_plugins = { "smear-cursor.nvim", "tiny-glimmer.nvim" },
+}
 ```
 
-Names are the extra without its `lazyvim.plugins.extras.` prefix. Mason keeps tools it already
-installed; remove them from `:Mason` with `X`.
+Extra names drop the `lazyvim.plugins.extras.` prefix. A misspelled plugin name is ignored rather
+than reported, so copy it from `:Lazy`. Disabling something LazyVim itself relies on can break it.
+Mason keeps tools it already installed; remove them from `:Mason` with `X`.
 
 ## 🎨 Colorschemes
 

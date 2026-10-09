@@ -22,6 +22,10 @@ require("lazy").setup({
     require("config.language_extras"),
     -- import/override with your plugins
     { import = "plugins" },
+    -- plugins turned off on this machine; a name alone disables the plugin wherever it is defined
+    vim.tbl_map(function(name)
+      return { name, enabled = false }
+    end, require("config.machine_settings").disabled_plugins),
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
