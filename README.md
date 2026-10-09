@@ -60,9 +60,10 @@ The first start installs every plugin, then Mason installs the language servers 
 ## 🌐 Per-Machine Settings
 
 Every LazyVim extra this config uses is listed in [`lua/config/extras.lua`](lua/config/extras.lua).
-Language extras whose tools Mason installs through a toolchain (npm, pip, go, gem, cargo) only load
-on machines that have that toolchain. Without Node, for example, TypeScript, Astro, JSON, YAML,
-Markdown and Tailwind are skipped. The rest, such as PHP, TOML and git, load everywhere.
+Language extras whose tools need a toolchain to install or run (Node, Python, Go, Ruby, Rust, PHP)
+only load on machines that have it. Without Node, for example, TypeScript, Astro, JSON, YAML,
+Markdown and Tailwind are skipped, and without PHP so is PHP's language server. The rest, such as
+TOML and git, load everywhere. Syntax highlighting for these languages stays on everywhere.
 
 `lazyvim.json` is git-ignored: LazyVim keeps per-machine state there, such as which news it has
 shown you. Extras toggled with `:LazyExtras` are saved there too, so they only apply to that

@@ -28,6 +28,8 @@ return {
         "luap",
         "markdown",
         "markdown_inline",
+        -- Highlighting everywhere; lang.php (lua/config/extras.lua) only loads where PHP is installed.
+        "php",
         "printf",
         "python",
         "query",
