@@ -2,9 +2,10 @@
 -- Themes and thematic elements
 -- Contains colorschemes, status lines, and elements which use themes
 --
-local UID = (vim.uv or vim.loop).getuid()
+local uv = vim.uv or vim.loop
 local IS_SUDOEDIT = vim.env.SUDOEDIT == "1"
-local IS_ROOT = IS_SUDOEDIT or UID == 0
+-- libuv has no getuid on Windows, where there is no root user to detect.
+local IS_ROOT = IS_SUDOEDIT or (uv.getuid ~= nil and uv.getuid() == 0)
 
 return {
   -- Melange

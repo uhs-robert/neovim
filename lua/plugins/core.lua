@@ -1,8 +1,9 @@
 -- lua/plugins/core.lua
 
-local UID = (vim.uv or vim.loop).getuid()
+local uv = vim.uv or vim.loop
 local IS_SUDOEDIT = vim.env.SUDOEDIT == "1"
-local IS_ROOT = IS_SUDOEDIT or UID == 0
+-- libuv has no getuid on Windows, where there is no root user to detect.
+local IS_ROOT = IS_SUDOEDIT or (uv.getuid ~= nil and uv.getuid() == 0)
 
 -- The dotfiles write the palette's scheme here while Settings > Colors > Sync Neovim is on.
 local SYNCED_COLORSCHEME_FILE = (vim.env.XDG_STATE_HOME or vim.fs.normalize("~/.local/state"))
