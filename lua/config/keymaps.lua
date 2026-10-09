@@ -14,13 +14,16 @@ vim.keymap.set("n", "<leader>cd", function()
   )
 end, { noremap = true, silent = true, desc = "Change directory to open file" })
 
--- Open the current file in the file explorer
-vim.keymap.set(
-  "n",
-  "<leader>fo",
-  ":!thunar %:p:h<CR>",
-  { noremap = true, silent = true, desc = "Open in file explorer" }
-)
+-- Open the current file's folder in the file explorer. Linux names thunar rather than relying on
+-- xdg-open, whose directory handler may be a terminal file manager.
+vim.keymap.set("n", "<leader>fo", function()
+  local folder = vim.fn.expand("%:p:h")
+  if vim.fn.has("win32") == 1 then
+    vim.ui.open(folder)
+  else
+    vim.fn.jobstart({ "thunar", folder }, { detach = true })
+  end
+end, { noremap = true, silent = true, desc = "Open in file explorer" })
 
 -- Save file without auto-formatting
 vim.keymap.set(
