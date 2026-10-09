@@ -137,7 +137,7 @@ Plugins this config adds on top of LazyVim and its extras, grouped by the file i
 <!-- plugins:start -->
 
 - **Coding:** [mini.align](https://github.com/nvim-mini/mini.align)
-- **Editor:** [mdx.nvim](https://github.com/davidmh/mdx.nvim), [pretty-fold.nvim](https://github.com/anuvyklack/pretty-fold.nvim), [nvim-spider](https://github.com/chrisgrieser/nvim-spider), [nvim-various-textobjs](https://github.com/chrisgrieser/nvim-various-textobjs)
+- **Editor:** [mdx.nvim](https://github.com/davidmh/mdx.nvim), [pretty-fold.nvim](https://github.com/anuvyklack/pretty-fold.nvim), [nvim-spider](https://github.com/chrisgrieser/nvim-spider), [nvim-various-textobjs](https://github.com/chrisgrieser/nvim-various-textobjs), [helpview.nvim](https://github.com/OXY2DEV/helpview.nvim)
 - **Filetypes:** [yuck.vim](https://github.com/elkowar/yuck.vim), [vim-tridactyl](https://github.com/tridactyl/vim-tridactyl)
 - **Fun:** [smear-cursor.nvim](https://github.com/sphamba/smear-cursor.nvim), [tiny-glimmer.nvim](https://github.com/rachartier/tiny-glimmer.nvim)
 - **Git:** [diffview.nvim](https://github.com/sindrets/diffview.nvim), [open-github-url.nvim](https://github.com/tetzng/open-github-url.nvim)

@@ -92,7 +92,8 @@ return {
   -- Improves the appearance and readability of Neovim's built-in help files
   {
     "OXY2DEV/helpview.nvim",
-    lazy = true,
+    -- It loads itself on help buffers; lazy = true with no trigger meant it never loaded at all.
+    lazy = false,
   },
 
   -- Inc-Rename
