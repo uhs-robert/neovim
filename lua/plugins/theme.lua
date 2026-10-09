@@ -143,6 +143,8 @@ return {
   {
     "uhs-robert/jewel.nvim",
     dir = local_plugin("jewel.nvim"),
+    -- Unpublished: GitHub only has the scaffold, so a clone has no Lua module to configure.
+    cond = local_plugin("jewel.nvim") ~= nil,
     lazy = false,
     priority = 1000,
     opts = {
