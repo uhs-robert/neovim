@@ -66,20 +66,33 @@ Markdown and Tailwind are skipped. The list and what each one needs is in
 such as PHP, TOML and git, are in [`lazyvim.json`](lazyvim.json) and load everywhere.
 
 To trim a machine further, for example to keep a server minimal, create `lua/config/machine.lua`
-(git ignores it) and restart Neovim:
+(git ignores it) and restart Neovim. Most machines only need a preset:
+
+```lua
+return { preset = "minimal" }
+```
+
+Presets live in [`lua/config/presets.lua`](lua/config/presets.lua). `minimal` drops the animation
+and color eye candy (the `fun` and `visual` groups and smooth scrolling). Anything else can be
+listed alongside it, and adds to the preset:
 
 ```lua
 return {
+  preset = "minimal",
+  -- whole files in lua/plugins/, by name (the groups in the plugin list below)
+  disabled_groups = { "remote" },
   -- language extras to skip even though their toolchain is installed
   disabled_extras = { "lang.astro", "lang.tailwind" },
-  -- any plugin, by the name :Lazy shows for it
-  disabled_plugins = { "smear-cursor.nvim", "tiny-glimmer.nvim" },
+  -- any single plugin, by the name :Lazy shows for it
+  disabled_plugins = { "tiny-glimmer.nvim" },
 }
 ```
 
-Extra names drop the `lazyvim.plugins.extras.` prefix. A misspelled plugin name is ignored rather
-than reported, so copy it from `:Lazy`. Disabling something LazyVim itself relies on can break it.
-Mason keeps tools it already installed; remove them from `:Mason` with `X`.
+Any group can be switched off: its own plugins go, while its settings for plugins LazyVim installs
+anyway (lualine in `theme`, treesitter in `editor`) still apply. Turning off `theme` does remove the
+Oasis colorscheme itself, though. Extra names drop the `lazyvim.plugins.extras.` prefix. An unknown
+preset or group name shows a warning at startup, but a misspelled plugin name is silently ignored,
+so copy it from `:Lazy`. Mason keeps tools it already installed; remove them from `:Mason` with `X`.
 
 ## 🎨 Colorschemes
 
