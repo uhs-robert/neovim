@@ -20,8 +20,8 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- language extras, each only where its toolchain is installed
     require("config.language_extras"),
-    -- import/override with your plugins
-    { import = "plugins" },
+    -- import/override with your plugins, one group per lua/plugins/ file
+    require("config.plugin_groups"),
     -- plugins turned off on this machine; a name alone disables the plugin wherever it is defined
     vim.tbl_map(function(name)
       return { name, enabled = false }
