@@ -2,8 +2,8 @@
 -- Every LazyVim extra this config uses. They live here rather than in lazyvim.json because
 -- LazyVim also writes per-machine state into that file (news it has shown), so it is git-ignored.
 --
--- Extras with `needs` are only imported where that toolchain exists, so Mason never tries to
--- install a server it has no runtime for. To skip any extra on a single machine, list it under
+-- Extras with `needs` are only imported where that toolchain exists, so Mason never installs a
+-- tool that has nothing to install or run it with. To skip any extra on a single machine, list it under
 -- disabled_extras in the untracked lua/config/machine.lua (see lua/config/machine_settings.lua).
 --
 -- blink, snacks_explorer and snacks_picker are not listed: LazyVim enables its default completion,
@@ -27,6 +27,9 @@ local toolchain_available = {
   go = function()
     return has("go")
   end,
+  php = function()
+    return has("php")
+  end,
   ruby = function()
     return has("ruby")
   end,
@@ -48,7 +51,6 @@ local extras = {
   { "editor.inc-rename" },
   { "editor.mini-move" },
   { "lang.git" },
-  { "lang.php" },
   { "lang.toml" },
   { "ui.mini-indentscope" },
   { "ui.treesitter-context" },
@@ -62,6 +64,9 @@ local extras = {
   { "lang.go", needs = { "go" } },
   { "lang.json", needs = { "node" } },
   { "lang.markdown", needs = { "node" } },
+  -- phpactor, phpcs and php-cs-fixer install as plain downloads but are PHP scripts, so they only
+  -- run where PHP is installed.
+  { "lang.php", needs = { "php" } },
   -- pyright, the default server, installs through npm.
   { "lang.python", needs = { "python", "node" } },
   { "lang.ruby", needs = { "ruby" } },
