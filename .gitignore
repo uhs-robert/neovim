@@ -108,5 +108,6 @@ promptgen/
 *.llm-out
 *.generated.*
 
-# Per-machine overrides (see lua/config/language_extras.lua)
+# Per-machine state and overrides (see lua/config/extras.lua and lua/config/machine_settings.lua)
+lazyvim.json
 lua/config/machine.lua

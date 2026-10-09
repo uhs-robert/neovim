@@ -18,11 +18,11 @@ local function fail(message)
   vim.cmd("cquit 1")
 end
 
--- Every language extra is included regardless of its toolchain check, so the list comes out the
--- same on every machine.
+-- Every extra is included regardless of its toolchain check or machine.lua, so the list comes out
+-- the same on every machine.
 local function lazyvim_plugin_names()
   local specs = { { "LazyVim/LazyVim", import = "lazyvim.plugins" } }
-  for _, extra in ipairs(dofile(repo_root .. "/lua/config/language_extras.lua")) do
+  for _, extra in ipairs(dofile(repo_root .. "/lua/config/extras.lua")) do
     specs[#specs + 1] = { import = extra.import }
   end
   local Spec = require("lazy.core.plugin").Spec

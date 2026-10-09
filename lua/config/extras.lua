@@ -1,10 +1,13 @@
--- lua/config/language_extras.lua
--- LazyVim extras whose Mason tools need a language toolchain (npm, pip, go, gem, cargo).
--- Each is imported only where that toolchain exists, so Mason never tries to install a server it
--- has no runtime for. Extras that need no toolchain stay in lazyvim.json.
+-- lua/config/extras.lua
+-- Every LazyVim extra this config uses. They live here rather than in lazyvim.json because
+-- LazyVim also writes per-machine state into that file (news it has shown), so it is git-ignored.
 --
--- To skip one on a single machine anyway, list it under disabled_extras in the untracked
--- lua/config/machine.lua (see lua/config/machine_settings.lua).
+-- Extras with `needs` are only imported where that toolchain exists, so Mason never tries to
+-- install a server it has no runtime for. To skip any extra on a single machine, list it under
+-- disabled_extras in the untracked lua/config/machine.lua (see lua/config/machine_settings.lua).
+--
+-- blink, snacks_explorer and snacks_picker are not listed: LazyVim enables its default completion,
+-- explorer and picker extras itself.
 
 local IS_WINDOWS = vim.fn.has("win32") == 1
 
@@ -32,9 +35,25 @@ local toolchain_available = {
   end,
 }
 
--- Ordered as LazyVim's own extras loader would (lazyvim/plugins/xtras.lua): typescript, then
--- prettier and eslint, then the rest by name.
+-- Ordered as LazyVim's own loader would (lazyvim/plugins/xtras.lua): test.core before anything
+-- that registers test adapters, typescript before prettier and eslint, the rest by name.
 local extras = {
+  { "test.core" },
+  { "ai.sidekick" },
+  { "coding.mini-comment" },
+  { "coding.mini-surround" },
+  { "coding.yanky" },
+  { "editor.dial" },
+  { "editor.illuminate" },
+  { "editor.inc-rename" },
+  { "editor.mini-move" },
+  { "lang.git" },
+  { "lang.php" },
+  { "lang.toml" },
+  { "ui.mini-indentscope" },
+  { "ui.treesitter-context" },
+  { "util.dot" },
+  { "util.mini-hipatterns" },
   { "lang.typescript", needs = { "node" } },
   { "formatting.prettier", needs = { "node" } },
   { "linting.eslint", needs = { "node" } },
@@ -60,7 +79,7 @@ return vim.tbl_map(function(extra)
     import = "lazyvim.plugins.extras." .. name,
     cond = function()
       if vim.tbl_contains(disabled_extras, name) then return false end
-      for _, toolchain in ipairs(extra.needs) do
+      for _, toolchain in ipairs(extra.needs or {}) do
         if not toolchain_available[toolchain]() then return false end
       end
       return true
