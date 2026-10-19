@@ -180,23 +180,23 @@ return {
   --   "rktjmp/shipwright.nvim",
   -- },
 
-  -- Lualine: Enhanced statusline with time display and file manager integration
+  -- Lualine: statusline with hostname display and file manager integration
   {
     "nvim-lualine/lualine.nvim",
     lazy = true,
     event = "LazyFile",
     opts = function(_, opts)
       opts.options.theme = "oasis"
-      opts.sections = vim.tbl_deep_extend("force", opts.sections or {}, {
-        lualine_z = {
-          {
-            function()
-              return os.date("%I:%M:%S %p")
-            end,
-            icon = "󰥔",
-          },
+      -- Replaces LazyVim's default clock in this section.
+      local short_hostname = vim.uv.os_gethostname():gsub("%..*", "")
+      opts.sections.lualine_z = {
+        {
+          function()
+            return short_hostname
+          end,
+          icon = "󰒋",
         },
-      })
+      }
       if opts.sections and opts.sections.lualine_c then
         for _, section in ipairs(opts.sections.lualine_c) do
           section.on_click = function()
