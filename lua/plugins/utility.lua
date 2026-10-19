@@ -49,7 +49,7 @@ return {
     "uhs-robert/comment-filename.nvim",
     dir = local_plugin("comment-filename.nvim"),
     opts = {
-      enabled = true,
+      enabled = false,
       filetypes = {
         html = true, -- careful with this one
       },
